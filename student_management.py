@@ -2,20 +2,74 @@ students = {}
 
 def add_student():
     roll = input("Enter Roll Number: ")
+
+    if roll in students:
+        print("Student already exists!")
+        return
+
     name = input("Enter Student Name: ")
     age = input("Enter Age: ")
-    students[roll] = {"name": name, "age": age}
+
+    students[roll] = {
+        "name": name,
+        "age": age
+    }
+
     print("Student Added Successfully!")
 
 def view_students():
+    if not students:
+        print("No Student Records Found!")
+        return
+
+    print("\nStudent Records:")
     for roll, details in students.items():
-        print(roll, details)
+        print("Roll Number:", roll)
+        print("Name:", details["name"])
+        print("Age:", details["age"])
+        print("-------------------")
+
+def search_student():
+    roll = input("Enter Roll Number to Search: ")
+
+    if roll in students:
+        print("Student Found!")
+        print(students[roll])
+    else:
+        print("Student Not Found!")
+
+def update_student():
+    roll = input("Enter Roll Number to Update: ")
+
+    if roll in students:
+        name = input("Enter New Name: ")
+        age = input("Enter New Age: ")
+
+        students[roll]["name"] = name
+        students[roll]["age"] = age
+
+        print("Student Updated Successfully!")
+    else:
+        print("Student Not Found!")
+
+def delete_student():
+    roll = input("Enter Roll Number to Delete: ")
+
+    if roll in students:
+        del students[roll]
+        print("Student Deleted Successfully!")
+    else:
+        print("Student Not Found!")
 
 def main():
     while True:
-        print("\n1. Add Student")
+        print("\n===== STUDENT MANAGEMENT SYSTEM =====")
+        print("1. Add Student")
         print("2. View Students")
-        print("3. Exit")
+        print("3. Search Student")
+        print("4. Update Student")
+        print("5. Delete Student")
+        print("6. Exit")
 
         choice = input("Enter Choice: ")
 
@@ -24,8 +78,15 @@ def main():
         elif choice == "2":
             view_students()
         elif choice == "3":
+            search_student()
+        elif choice == "4":
+            update_student()
+        elif choice == "5":
+            delete_student()
+        elif choice == "6":
+            print("Thank You!")
             break
         else:
-            print("Invalid Choice")
+            print("Invalid Choice!")
 
 main()
